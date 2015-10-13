@@ -1,3 +1,5 @@
+"use strict";
+
 var hours = process.argv[2];
 var minutes = process.argv[3];
 
@@ -76,14 +78,18 @@ var ascii = {
 };
 
 function convertTime(number) {
-    if (number in numbers)
+    if (number in numbers) {
         return numbers[number];
-    else {
-        return numbers[number[0]*10]+numbers[number[1]];
     }
+    return numbers[number[0]*10]+numbers[number[1]];
 }
 
-if (process.argv.length != 4 || hours > 23 || hours < 0 || minutes > 59 || minutes < 0) {
+function isInteger(number) {
+    return (number ^ 0) == number;
+}
+
+if (process.argv.length !== 4 || !isInteger(hours) || !isInteger(minutes) ||  hours > 23 || hours < 0 ||
+    minutes > 59 || minutes < 0) {
     console.log("Incorrect input");
 }
 else {
